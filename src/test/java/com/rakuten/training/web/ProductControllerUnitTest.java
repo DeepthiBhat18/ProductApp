@@ -68,14 +68,9 @@ public class ProductControllerUnitTest {
 		// Arrange
 		Product toBeAdded = new Product("test", 123465.0f, 100);
 		int id = 1;
-		Mockito.when(service.addNewProduct(Mockito.any())).thenReturn(id);
-		// toBeAdded.setId(id);
+		Mockito.when(service.addNewProduct(Mockito.any(Product.class))).thenReturn(id);
 		// Act//Assert
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
-		ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-		String requestJson = ow.writeValueAsString(toBeAdded);
-		mockMvc.perform(post("/products").contentType(MediaType.APPLICATION_JSON).content(requestJson))
+		mockMvc.perform(post("/products").contentType(MediaType.APPLICATION_JSON).content(objToJson(toBeAdded)))
 				.andExpect(MockMvcResultMatchers.status().isCreated())
 				.andExpect(MockMvcResultMatchers.header().string(HttpHeaders.LOCATION, "/products/" + id));
 		Mockito.verify(service).addNewProduct(Mockito.any(Product.class));
@@ -88,7 +83,6 @@ public class ProductControllerUnitTest {
 		Product toBeAdded = new Product("test", 12.0f, 100);
 		int id = 1;
 		Mockito.when(service.addNewProduct(Mockito.any())).thenThrow(new IllegalArgumentException());
-		// toBeAdded.setId(id);
 		// Act//Assert
 		mockMvc.perform(post("/products").contentType(MediaType.APPLICATION_JSON).content(objToJson(toBeAdded)))
 				.andExpect(MockMvcResultMatchers.status().isBadRequest());
@@ -97,7 +91,7 @@ public class ProductControllerUnitTest {
 	}
 
 	@Test
-	public void deleteProduct_If_ProductId_Exists_And_GT_MinValue() throws Exception {
+	public void deleteProduct_If_ProductId_Exists_And_LT_MinValue() throws Exception {
 		// Arrange
 		int id = 1;
 		Mockito.doNothing().when(service).removeProduct(id);
@@ -107,7 +101,7 @@ public class ProductControllerUnitTest {
 	}
 
 	@Test
-	public void deleteProduct_If_ProductId_Exists_And_LT_MinValue() throws Exception {
+	public void deleteProduct_If_ProductId_Exists_And_GT_MinValue() throws Exception {
 		// Arrange
 		int id = 1;
 		// Act//Assert

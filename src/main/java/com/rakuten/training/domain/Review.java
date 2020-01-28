@@ -21,7 +21,7 @@ public class Review {
 
 	@ManyToOne
 	@JoinColumn(name = "product_id")
-	@JsonIgnore
+	//@JsonIgnore
 	Product product;
 
 	public Review() {

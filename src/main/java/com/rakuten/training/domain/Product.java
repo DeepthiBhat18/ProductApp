@@ -27,11 +27,13 @@ public class Product {
 	float price;
 	@Column(name="product_qoh")
 	int qoh;
+	@Column(length=5000)
+	String image;
 	
 	//Collection types are lazily initialised by default.
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = CascadeType.REMOVE)
 	//@JoinColumn(name="product_id") Do not specify as this is not the owner of the association.
-	//@JsonIgnore
+	@JsonIgnore
 	List<Review> reviews;
 
 	public Product() {
@@ -84,6 +86,14 @@ public class Product {
 
 	public void setReviews(List<Review> reviews) {
 		this.reviews = reviews;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 }

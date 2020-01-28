@@ -34,10 +34,10 @@ public class ProductConsoleUI {
 		Product q = service.findById(id);
 		System.out.println(q.getName());
 		
-		service.removeProduct(id);
-		Product r = service.findById(id);
-		if(r == null)
-			System.out.println("Successfully deleted");
+		/*
+		 * service.removeProduct(id); Product r = service.findById(id); if(r == null)
+		 * System.out.println("Successfully deleted");
+		 */
 		
 	}
 

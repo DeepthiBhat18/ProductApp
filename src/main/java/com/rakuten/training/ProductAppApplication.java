@@ -17,12 +17,12 @@ import com.rakuten.training.ui.ProductConsoleUI;
 public class ProductAppApplication {
 
 	public static void main(String[] args) {
-		// ApplicationContext springContainer =
+		ApplicationContext springContainer =
 		SpringApplication.run(ProductAppApplication.class, args);
-		/*
-		 * ProductConsoleUI ui = springContainer.getBean(ProductConsoleUI.class);
-		 * ui.createProductWithUI();
-		 */
+		
+		  ProductConsoleUI ui = springContainer.getBean(ProductConsoleUI.class);
+		  ui.createProductWithUI();
+		 
 
 		/*
 		 * ReviewDAO reviewDAO = springContainer.getBean(ReviewDAO.class); Review sample
@@ -31,14 +31,15 @@ public class ProductAppApplication {
 		 * saved.getId());
 		 */
 
-		/*
-		 * ProductDAO productDAO = springContainer.getBean(ProductDAO.class);
-		 * List<Product> products = productDAO.findAll();
-		 * System.out.println("The products are:"); for (Product p : products) {
-		 * System.out.println(p.getName()); }
-		 * 
-		 * productDAO.deleteById(1);
-		 */
+		
+		  ProductDAO productDAO = springContainer.getBean(ProductDAO.class);
+		  List<Product> products = productDAO.findAll();
+		  System.out.println("The products are:"); 
+		  for (Product p : products) {
+		  System.out.println(p.getName()); }
+		  
+		  //productDAO.deleteById(1);
+		 
 
 		// System.out.println("This product has "+p.getReviews().size()+" reviews");
 	}
